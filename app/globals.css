@@ -71,3 +71,18 @@ h6 {
   background: var(--color-border);
   border-radius: 3px;
 }
+
+/* SkillOrbit: continuous orbital rotation */
+@keyframes orbit {
+  from { transform: rotate(0deg) translateX(var(--orbit-r)) rotate(0deg); }
+  to   { transform: rotate(360deg) translateX(var(--orbit-r)) rotate(-360deg); }
+}
+@keyframes orbit-reverse {
+  from { transform: rotate(0deg) translateX(var(--orbit-r)) rotate(0deg); }
+  to   { transform: rotate(-360deg) translateX(var(--orbit-r)) rotate(360deg); }
+}
+
+/* Skill chip hover glow (set via JS inline style) */
+.skill-chip-hover {
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s cubic-bezier(0.34,1.56,0.64,1);
+}
