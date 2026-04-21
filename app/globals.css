@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --color-bg: #09090B;
+  --color-surface: #18181B;
+  --color-surface-elevated: #1C1C1F;
+  --color-accent: #2563EB;
+  --color-accent-hover: #1D4ED8;
+  --color-text: #FAFAFA;
+  --color-muted: #A1A1AA;
+  --color-border: #27272A;
+
+  /* Typography */
+  --font-heading: var(--font-archivo), sans-serif;
+  --font-body: var(--font-space-grotesk), sans-serif;
+
+  /* Easing */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Radii */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+}
+
+::selection {
+  background-color: var(--color-accent);
+  color: white;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
