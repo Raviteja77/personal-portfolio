@@ -226,6 +226,66 @@ export const skills = {
 };
 
 // ============================================================
+// CERTIFICATIONS
+// ============================================================
+export const certifications = [
+  {
+    title: "GraphQL",
+    issuer: "HackerRank",
+    image: "/assets/certificates/graphql.png",
+    category: "Backend",
+  },
+  {
+    title: "Responsive Web Design",
+    issuer: "freeCodeCamp",
+    image: "/assets/certificates/responsive-web.png",
+    category: "Frontend",
+  },
+  {
+    title: "Object Oriented Programming in Java",
+    issuer: "HackerRank",
+    image: "/assets/certificates/oops-java.png",
+    category: "Languages",
+  },
+  {
+    title: "Problem Solving with Java",
+    issuer: "HackerRank",
+    image: "/assets/certificates/problem-solving-java.png",
+    category: "Languages",
+  },
+  {
+    title: "Python: Programming, Data Structures & Algorithms",
+    issuer: "NPTEL",
+    image: "/assets/certificates/python-dsa.jpg",
+    category: "Languages",
+  },
+  {
+    title: "EPAM Professional Education Program",
+    issuer: "EPAM Systems",
+    image: "/assets/certificates/epam-pep.png",
+    category: "Professional",
+  },
+  {
+    title: "Artificial Intelligence Foundations",
+    issuer: "LinkedIn Learning",
+    image: "/assets/certificates/ai.png",
+    category: "AI/ML",
+  },
+  {
+    title: "TechGig Code Gladiators",
+    issuer: "TechGig",
+    image: "/assets/certificates/techgig.png",
+    category: "Competition",
+  },
+  {
+    title: "TEKSystems Training Program",
+    issuer: "TEKSystems",
+    image: "/assets/certificates/teksystems.jpg",
+    category: "Professional",
+  },
+] as const;
+
+// ============================================================
 // SITE CONFIG — SEO, metadata
 // ============================================================
 export const siteConfig = {

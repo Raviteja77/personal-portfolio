@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "motion/react";
 import { personal } from "@/content";
 
-const NAV_LINKS = ["Work", "About", "Skills", "Contact"] as const;
+const NAV_LINKS = ["Work", "About", "Skills", "Certifications", "Contact"] as const;
 
 export function Nav() {
   const [hidden, setHidden] = useState(false);
