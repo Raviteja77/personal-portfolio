@@ -53,7 +53,11 @@ export const projects = [
     },
     images: {
       thumbnail: "/assets/work/rove-around-thumb.jpg",
-      hero: "/assets/work/rove-around-hero.jpg",
+      screenshots: [
+        "/assets/work/rove-around-thumb.jpg",
+        "/assets/work/rove-around-2.jpg",
+        "/assets/work/rove-around-3.jpg",
+      ],
     },
     featured: true,
   },
@@ -76,8 +80,12 @@ export const projects = [
       caseStudy: "",
     },
     images: {
-      thumbnail: "/assets/work/acronet-thumb.jpg",
-      hero: "/assets/work/acronet-hero.jpg",
+      thumbnail: "/assets/work/acronet-thumb.png",
+      screenshots: [
+        "/assets/work/acronet-thumb.png",
+        "/assets/work/acronet-2.png",
+        "/assets/work/acronet-3.png",
+      ],
     },
     featured: true,
   },
@@ -100,8 +108,12 @@ export const projects = [
       caseStudy: "",
     },
     images: {
-      thumbnail: "/assets/work/find-jobs-thumb.jpg",
-      hero: "/assets/work/find-jobs-hero.jpg",
+      thumbnail: "/assets/work/find-jobs-thumb.png",
+      screenshots: [
+        "/assets/work/find-jobs-thumb.png",
+        "/assets/work/find-jobs-2.png",
+        "/assets/work/find-jobs-3.png",
+      ],
     },
     featured: false,
   },
@@ -124,8 +136,12 @@ export const projects = [
       caseStudy: "",
     },
     images: {
-      thumbnail: "/assets/work/inventory-thumb.jpg",
-      hero: "/assets/work/inventory-hero.jpg",
+      thumbnail: "/assets/work/inventory-thumb.png",
+      screenshots: [
+        "/assets/work/inventory-thumb.png",
+        "/assets/work/inventory-2.png",
+        "/assets/work/inventory-3.png",
+      ],
     },
     featured: false,
   },

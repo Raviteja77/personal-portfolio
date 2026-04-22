@@ -1,18 +1,19 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion } from "motion/react";
 
-// Per-project gradient thumbnails keyed by project id
-const GRADIENTS: Record<string, string> = {
+// Gradient color overlay per project (sits on top of screenshot)
+const OVERLAYS: Record<string, string> = {
   "rove-around":
-    "radial-gradient(ellipse 80% 60% at 30% 40%, rgba(66,133,244,0.35) 0%, transparent 60%), radial-gradient(ellipse 60% 80% at 80% 70%, rgba(109,179,63,0.25) 0%, transparent 60%), #0f1117",
+    "linear-gradient(to bottom, rgba(66,133,244,0.18) 0%, rgba(9,9,11,0.55) 100%)",
   acronet:
-    "radial-gradient(ellipse 70% 60% at 20% 50%, rgba(36,150,237,0.3) 0%, transparent 60%), radial-gradient(ellipse 60% 70% at 75% 30%, rgba(9,46,32,0.5) 0%, transparent 60%), #0f1117",
+    "linear-gradient(to bottom, rgba(36,150,237,0.18) 0%, rgba(9,9,11,0.55) 100%)",
   "find-jobs":
-    "radial-gradient(ellipse 80% 60% at 50% 40%, rgba(37,99,235,0.25) 0%, transparent 60%), radial-gradient(ellipse 50% 60% at 80% 70%, rgba(124,58,237,0.2) 0%, transparent 60%), #0f1117",
+    "linear-gradient(to bottom, rgba(37,99,235,0.18) 0%, rgba(9,9,11,0.55) 100%)",
   "inventory-angular":
-    "radial-gradient(ellipse 70% 60% at 25% 45%, rgba(221,0,49,0.22) 0%, transparent 55%), radial-gradient(ellipse 60% 70% at 75% 55%, rgba(109,179,63,0.22) 0%, transparent 60%), #0f1117",
+    "linear-gradient(to bottom, rgba(221,0,49,0.15) 0%, rgba(9,9,11,0.55) 100%)",
 };
 
 export interface ProjectCardData {
@@ -25,6 +26,7 @@ export interface ProjectCardData {
   year: string;
   status: "live" | "wip" | "archived";
   links: { live: string; github: string; caseStudy: string };
+  images: { thumbnail: string; screenshots: readonly string[] };
   featured: boolean;
 }
 
@@ -36,7 +38,7 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project, onOpen, featured = false }: ProjectCardProps) {
   const [hovered, setHovered] = useState(false);
-  const gradient = GRADIENTS[project.id] ?? GRADIENTS["find-jobs"];
+  const overlay = OVERLAYS[project.id] ?? OVERLAYS["find-jobs"];
 
   return (
     <motion.article
@@ -69,27 +71,34 @@ export function ProjectCard({ project, onOpen, featured = false }: ProjectCardPr
         flexDirection: "column",
       }}
     >
-      {/* Gradient thumbnail */}
+      {/* Screenshot thumbnail */}
       <div
         style={{
           height: featured ? 200 : 160,
-          background: gradient,
           position: "relative",
           flexShrink: 0,
+          background: "#0f1117",
+          overflow: "hidden",
         }}
       >
-        {/* Grid overlay */}
+        {/* Real screenshot */}
+        <Image
+          src={project.images.thumbnail}
+          alt={`${project.title} screenshot`}
+          fill
+          style={{
+            objectFit: "cover",
+            objectPosition: "top",
+            opacity: hovered ? 0.7 : 0.85,
+            transition: "opacity 0.3s ease, transform 0.4s ease",
+            transform: hovered ? "scale(1.04)" : "scale(1)",
+          }}
+          sizes="(max-width: 768px) 100vw, 50vw"
+        />
+        {/* Gradient colour tint on top */}
         <div
           aria-hidden
-          style={{
-            position: "absolute",
-            inset: 0,
-            backgroundImage: `
-              linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)
-            `,
-            backgroundSize: "32px 32px",
-          }}
+          style={{ position: "absolute", inset: 0, background: overlay }}
         />
 
         {/* Hover overlay — "View Case Study" */}
