@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useCallback } from "react";
 import Image from "next/image";
 import { motion, useInView, useReducedMotion } from "motion/react";
 import { Marquee } from "@/components/ui/Marquee";
@@ -15,34 +15,39 @@ const CATEGORY_COLORS: Record<string, string> = {
   Competition:  "#EF4444",
 };
 
-function CertCard({
-  title,
-  issuer,
-  image,
-  category,
-}: {
+interface CertCardProps {
   title: string;
   issuer: string;
   image: string;
   category: string;
-}) {
+}
+
+function CertCard({ title, issuer, image, category }: CertCardProps) {
+  const [flipped, setFlipped] = useState(false);
   const color = CATEGORY_COLORS[category] ?? "#2563EB";
 
+  const toggle = useCallback(() => setFlipped((v) => !v), []);
+
   return (
-    <div
+    <motion.div
+      onClick={toggle}
+      whileHover={{ y: -6, scale: 1.02 }}
+      transition={{ type: "spring", stiffness: 300, damping: 24 }}
       style={{
         width: 260,
         height: 160,
         margin: "0 10px",
-        perspective: 800,
+        perspective: 1000,
         flexShrink: 0,
         cursor: "pointer",
+        userSelect: "none",
       }}
-      className="cert-card-wrapper"
+      title={flipped ? "Click to flip back" : "Click to reveal details"}
     >
+      {/* Flip container */}
       <motion.div
-        whileHover={{ rotateY: 180 }}
-        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+        animate={{ rotateY: flipped ? 180 : 0 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         style={{
           width: "100%",
           height: "100%",
@@ -50,7 +55,7 @@ function CertCard({
           transformStyle: "preserve-3d",
         }}
       >
-        {/* Front — certificate image */}
+        {/* ── Front: certificate image ── */}
         <div
           style={{
             position: "absolute",
@@ -61,15 +66,39 @@ function CertCard({
             overflow: "hidden",
             border: "1px solid rgba(255,255,255,0.08)",
             background: "#0a0a0c",
+            boxShadow: "0 8px 32px rgba(0,0,0,0.4)",
           }}
         >
           <Image
             src={image}
             alt={title}
             fill
-            style={{ objectFit: "cover", opacity: 0.9 }}
+            style={{ objectFit: "cover", opacity: 0.92 }}
             sizes="260px"
           />
+          {/* Hover hint overlay */}
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background: "linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 60%)",
+            }}
+          />
+          <span
+            style={{
+              position: "absolute",
+              bottom: 10,
+              left: 12,
+              fontFamily: "var(--font-body)",
+              fontSize: "0.6rem",
+              fontWeight: 600,
+              letterSpacing: "0.06em",
+              textTransform: "uppercase",
+              color: "rgba(255,255,255,0.5)",
+            }}
+          >
+            click to flip
+          </span>
           {/* Category pill */}
           <span
             style={{
@@ -85,14 +114,13 @@ function CertCard({
               background: color,
               padding: "0.2rem 0.5rem",
               borderRadius: "999px",
-              opacity: 0.9,
             }}
           >
             {category}
           </span>
         </div>
 
-        {/* Back — details */}
+        {/* ── Back: details ── */}
         <div
           style={{
             position: "absolute",
@@ -101,25 +129,25 @@ function CertCard({
             WebkitBackfaceVisibility: "hidden",
             transform: "rotateY(180deg)",
             borderRadius: "0.875rem",
-            border: `1px solid ${color}33`,
-            background: `linear-gradient(135deg, #0f0f14 0%, #18181B 100%)`,
+            border: `1px solid ${color}44`,
+            background: "linear-gradient(135deg, #0f0f14 0%, #18181B 100%)",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            gap: "0.625rem",
+            gap: "0.5rem",
             padding: "1.25rem",
             textAlign: "center",
+            boxShadow: `0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px ${color}22`,
           }}
         >
-          {/* Glow dot */}
           <span
             style={{
-              width: 8,
-              height: 8,
+              width: 10,
+              height: 10,
               borderRadius: "50%",
               background: color,
-              boxShadow: `0 0 12px ${color}`,
+              boxShadow: `0 0 14px ${color}`,
               flexShrink: 0,
             }}
           />
@@ -139,14 +167,26 @@ function CertCard({
               fontFamily: "var(--font-body)",
               fontSize: "0.6875rem",
               color: color,
-              fontWeight: 500,
+              fontWeight: 600,
+              letterSpacing: "0.02em",
             }}
           >
             {issuer}
           </p>
+          <span
+            style={{
+              marginTop: "0.25rem",
+              fontFamily: "var(--font-body)",
+              fontSize: "0.6rem",
+              color: "rgba(255,255,255,0.3)",
+              letterSpacing: "0.04em",
+            }}
+          >
+            click to flip back
+          </span>
         </div>
       </motion.div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -155,7 +195,6 @@ export function CertificationsSection() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const prefersReduced = useReducedMotion();
 
-  // Split certs into two rows
   const row1 = certifications.slice(0, Math.ceil(certifications.length / 2));
   const row2 = certifications.slice(Math.ceil(certifications.length / 2));
 
@@ -163,11 +202,7 @@ export function CertificationsSection() {
     <section
       ref={ref}
       id="certifications"
-      style={{
-        padding: "7rem 0",
-        position: "relative",
-        overflow: "hidden",
-      }}
+      style={{ padding: "7rem 0", position: "relative", overflow: "hidden" }}
     >
       {/* Ambient glow */}
       <div
@@ -238,11 +273,12 @@ export function CertificationsSection() {
             lineHeight: 1.6,
           }}
         >
-          Hover to reveal each certificate. {certifications.length} credentials across frontend, backend, and professional development.
+          {certifications.length} credentials across frontend, backend, and professional development.
+          Click any card to reveal details.
         </motion.p>
       </div>
 
-      {/* Row 1 — left to right */}
+      {/* Row 1 */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={inView ? { opacity: 1 } : {}}
@@ -256,11 +292,11 @@ export function CertificationsSection() {
         </Marquee>
       </motion.div>
 
-      {/* Row 2 — right to left */}
+      {/* Row 2 */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={inView ? { opacity: 1 } : {}}
-        transition={{ duration: 0.8, delay: 0.35 }}
+        transition={{ duration: 0.8, delay: 0.32 }}
       >
         <Marquee speed={prefersReduced ? 0 : 38} reverse pauseOnHover>
           {row2.map((cert) => (
@@ -269,16 +305,12 @@ export function CertificationsSection() {
         </Marquee>
       </motion.div>
 
-      {/* Bottom count pill */}
+      {/* Bottom pill */}
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6, delay: 0.5 }}
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          marginTop: "2.5rem",
-        }}
+        style={{ display: "flex", justifyContent: "center", marginTop: "2.5rem" }}
       >
         <span
           style={{
@@ -291,7 +323,7 @@ export function CertificationsSection() {
             background: "rgba(255,255,255,0.03)",
           }}
         >
-          {certifications.length} certificates earned · hover cards to preview
+          {certifications.length} certificates earned · click to flip
         </span>
       </motion.div>
     </section>

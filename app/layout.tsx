@@ -19,9 +19,13 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: siteConfig.title,
+  title: "Ravi Teja Geddada - Portfolio",
   description: siteConfig.description,
   metadataBase: new URL(siteConfig.url),
+  icons: {
+    icon: "/favicon.jpeg",
+    apple: "/favicon.jpeg",
+  },
   openGraph: {
     title: siteConfig.title,
     description: siteConfig.description,

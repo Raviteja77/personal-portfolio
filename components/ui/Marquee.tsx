@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useState } from "react";
 import { useReducedMotion } from "motion/react";
 
 interface MarqueeProps {
@@ -19,19 +19,17 @@ export function Marquee({
   className,
 }: MarqueeProps) {
   const prefersReduced = useReducedMotion();
-  const trackRef = useRef<HTMLDivElement>(null);
+  const [paused, setPaused] = useState(false);
 
-  const duration = prefersReduced ? 0 : speed;
   const dir = reverse ? "reverse" : "normal";
+  const playState = paused ? "paused" : "running";
 
   return (
     <div
       className={className}
-      style={{
-        overflow: "hidden",
-        position: "relative",
-        width: "100%",
-      }}
+      onMouseEnter={() => pauseOnHover && setPaused(true)}
+      onMouseLeave={() => pauseOnHover && setPaused(false)}
+      style={{ overflow: "hidden", position: "relative", width: "100%" }}
     >
       {/* Left fade */}
       <div
@@ -42,8 +40,7 @@ export function Marquee({
           top: 0,
           bottom: 0,
           width: 120,
-          background:
-            "linear-gradient(to right, var(--color-bg) 0%, transparent 100%)",
+          background: "linear-gradient(to right, var(--color-bg) 0%, transparent 100%)",
           zIndex: 10,
           pointerEvents: "none",
         }}
@@ -57,24 +54,21 @@ export function Marquee({
           top: 0,
           bottom: 0,
           width: 120,
-          background:
-            "linear-gradient(to left, var(--color-bg) 0%, transparent 100%)",
+          background: "linear-gradient(to left, var(--color-bg) 0%, transparent 100%)",
           zIndex: 10,
           pointerEvents: "none",
         }}
       />
 
       <div
-        ref={trackRef}
         style={{
           display: "flex",
           width: "max-content",
           animation: prefersReduced
             ? "none"
-            : `marquee ${duration}s linear infinite ${dir}`,
-          ...(pauseOnHover ? {} : {}),
+            : `marquee ${speed}s linear infinite ${dir}`,
+          animationPlayState: playState,
         }}
-        className={pauseOnHover ? "marquee-track" : undefined}
       >
         {children}
         {children}
