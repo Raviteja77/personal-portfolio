@@ -232,7 +232,7 @@ export const siteConfig = {
   title: "Ravi Teja Geddada — Software Engineer",
   description:
     "Software Engineer specializing in Angular, React, and scalable web applications. Currently building web components for Fidelity Investments.",
-  url: "https://ravitejageddada.dev",
+  url: "https://raviteja-geddada.is-a.dev",
   ogImage: "/assets/og-image.jpg",
   twitterHandle: "",
 };
