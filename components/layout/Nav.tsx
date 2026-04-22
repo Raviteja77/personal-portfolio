@@ -134,7 +134,7 @@ export function Nav() {
               </a>
             </nav>
 
-            {/* Mobile: Hamburger button */}
+            {/* Mobile: Hamburger button — hidden on md+ via className */}
             <button
               className="flex md:hidden"
               onClick={() => setMenuOpen((v) => !v)}
@@ -146,7 +146,6 @@ export function Nav() {
                 cursor: "pointer",
                 padding: "0.5rem",
                 zIndex: 60,
-                display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",

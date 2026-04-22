@@ -6,6 +6,7 @@ import { ScrambleText } from "@/components/ui/ScrambleText";
 import { TypewriterCycle } from "@/components/ui/TypewriterCycle";
 import { MatrixRain } from "@/components/ui/MatrixRain";
 import { FloatingBadges } from "@/components/ui/FloatingBadges";
+import { HeroSceneDynamic } from "@/components/three/HeroSceneDynamic";
 import { CodeSnippet } from "@/components/ui/CodeSnippet";
 import { useMagneticHover } from "@/hooks/useMagneticHover";
 import { useMouseParallax } from "@/hooks/useMouseParallax";
@@ -38,6 +39,40 @@ export function HeroSection() {
     >
       {/* ── Background layers ── */}
       <MatrixRain />
+
+      {/* 3D scene — floating background orb */}
+      <motion.div
+        aria-hidden
+        animate={
+          prefersReduced
+            ? {}
+            : {
+                y: [0, -22, 0],
+                scale: [1, 1.04, 1],
+                opacity: [0.5, 0.62, 0.5],
+              }
+        }
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut",
+          times: [0, 0.5, 1],
+        }}
+        style={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          width: 700,
+          height: 700,
+          marginLeft: -350,
+          marginTop: -350,
+          zIndex: 2,
+          opacity: 0.5,
+          pointerEvents: "none",
+        }}
+      >
+        <HeroSceneDynamic />
+      </motion.div>
 
       {/* Grid texture */}
       <div

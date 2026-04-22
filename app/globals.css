@@ -72,6 +72,52 @@ h6 {
   border-radius: 3px;
 }
 
+/* BorderBeam — from 21st.dev MagicUI: moving light beam along card border */
+@keyframes border-beam {
+  100% { offset-distance: 100%; }
+}
+
+.border-beam {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: calc(var(--beam-border-width, 1.5) * 1px) solid transparent;
+  -webkit-mask-clip: padding-box, border-box;
+  mask-clip: padding-box, border-box;
+  -webkit-mask-composite: intersect;
+  mask-composite: intersect;
+  mask: linear-gradient(transparent, transparent), linear-gradient(white, white);
+}
+.border-beam::after {
+  content: '';
+  position: absolute;
+  aspect-ratio: 1 / 1;
+  width: calc(var(--beam-size, 200) * 1px);
+  animation: border-beam calc(var(--beam-duration, 12) * 1s) infinite linear;
+  animation-delay: calc(var(--beam-delay, 0) * -1s);
+  background: linear-gradient(to left, var(--beam-color-from, #2563EB), var(--beam-color-to, #8B5CF6), transparent);
+  offset-anchor: 90% 50%;
+  offset-path: rect(0 auto auto 0 round calc(var(--beam-size, 200) * 1px));
+}
+
+/* ShimmerButton keyframes — from 21st.dev MagicUI */
+@keyframes shimmer-slide {
+  to { transform: translate(calc(100cqw - 100%), 0); }
+}
+@keyframes spin-around {
+  0%         { transform: translateZ(0) rotate(0deg); }
+  15%, 35%   { transform: translateZ(0) rotate(90deg); }
+  65%, 85%   { transform: translateZ(0) rotate(270deg); }
+  100%       { transform: translateZ(0) rotate(360deg); }
+}
+
+/* Contact form input focus line animation */
+@keyframes input-line-grow {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
 /* SkillOrbit: continuous orbital rotation */
 @keyframes orbit {
   from { transform: rotate(0deg) translateX(var(--orbit-r)) rotate(0deg); }
