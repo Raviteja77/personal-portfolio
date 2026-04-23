@@ -25,38 +25,53 @@ const LINES: Line[] = [
     { text: "RaviTejaComponent", color: C.className },
     { text: " {", color: C.punct },
   ],
+  [], // blank line
   [
-    { text: "  firstName ", color: C.prop },
+    { text: "  firstName   ", color: C.prop },
     { text: "= ", color: C.punct },
     { text: "'Ravi Teja'", color: C.string },
     { text: ";", color: C.punct },
   ],
   [
-    { text: "  lastName  ", color: C.prop },
+    { text: "  lastName    ", color: C.prop },
     { text: "= ", color: C.punct },
     { text: "'Geddada'", color: C.string },
     { text: ";", color: C.punct },
   ],
   [
-    { text: "  location  ", color: C.prop },
+    { text: "  location    ", color: C.prop },
     { text: "= ", color: C.punct },
     { text: "'Roanoke, TX'", color: C.string },
     { text: ";", color: C.punct },
   ],
+  [], // blank line
   [
-    { text: "  role      ", color: C.prop },
+    { text: "  role        ", color: C.prop },
     { text: "= ", color: C.punct },
     { text: "'Software Engineer'", color: C.string },
     { text: ";", color: C.punct },
   ],
   [
-    { text: "  degree    ", color: C.prop },
+    { text: "  currentClient", color: C.prop },
+    { text: " = ", color: C.punct },
+    { text: "'Fidelity Investments'", color: C.string },
+    { text: ";", color: C.punct },
+  ],
+  [
+    { text: "  degree      ", color: C.prop },
     { text: "= ", color: C.punct },
     { text: "'MS Computer Science'", color: C.string },
     { text: ";", color: C.punct },
   ],
   [
-    { text: "  stack     ", color: C.prop },
+    { text: "  yearsExp    ", color: C.prop },
+    { text: "= ", color: C.punct },
+    { text: "4", color: C.bool },
+    { text: ";", color: C.punct },
+  ],
+  [], // blank line
+  [
+    { text: "  stack       ", color: C.prop },
     { text: "= [", color: C.punct },
     { text: "'Angular'", color: C.string },
     { text: ", ", color: C.punct },
@@ -64,18 +79,19 @@ const LINES: Line[] = [
     { text: ",", color: C.punct },
   ],
   [
-    { text: "             ", color: C.punct },
+    { text: "               ", color: C.punct },
     { text: "'TypeScript'", color: C.string },
     { text: ", ", color: C.punct },
     { text: "'Lit'", color: C.string },
     { text: "];", color: C.punct },
   ],
   [
-    { text: "  passionate", color: C.prop },
-    { text: " = ", color: C.punct },
+    { text: "  passionate  ", color: C.prop },
+    { text: "= ", color: C.punct },
     { text: "true", color: C.bool },
     { text: ";", color: C.punct },
   ],
+  [], // blank line
   [{ text: "}", color: C.punct }],
 ];
 
