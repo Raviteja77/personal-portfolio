@@ -59,6 +59,11 @@ h6 {
   color: white;
 }
 
+.custom-cursor,
+.custom-cursor * {
+  cursor: none !important;
+}
+
 ::-webkit-scrollbar {
   width: 6px;
 }

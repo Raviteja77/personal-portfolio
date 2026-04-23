@@ -2,8 +2,8 @@
 
 import { useCallback, useRef, useState } from "react";
 
-export function useMagneticHover(strength = 0.38) {
-  const ref = useRef<HTMLAnchorElement>(null);
+export function useMagneticHover<T extends HTMLElement = HTMLAnchorElement>(strength = 0.38) {
+  const ref = useRef<T>(null);
   const [xy, setXy] = useState({ x: 0, y: 0 });
 
   const onMove = useCallback(

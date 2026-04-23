@@ -14,34 +14,30 @@ interface GradientTextProps {
 }
 
 export function GradientText({ children, as: Tag = "span", className }: GradientTextProps) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const ref = useRef<any>(null);
+  const ref = useRef<HTMLElement>(null);
   const prefersReduced = useReducedMotion();
 
   useEffect(() => {
     if (prefersReduced || !ref.current) return;
 
-    const el = ref.current as HTMLElement;
-    gsap.fromTo(
-      el,
-      { backgroundSize: "0% 100%" },
-      {
-        backgroundSize: "100% 100%",
-        ease: "power3.out",
-        duration: 1.2,
-        scrollTrigger: {
-          trigger: el,
-          start: "top 80%",
-          once: true,
-        },
-      }
-    );
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        ref.current,
+        { backgroundSize: "0% 100%" },
+        {
+          backgroundSize: "100% 100%",
+          ease: "power3.out",
+          duration: 1.2,
+          scrollTrigger: {
+            trigger: ref.current,
+            start: "top 80%",
+            once: true,
+          },
+        }
+      );
+    });
 
-    return () => {
-      ScrollTrigger.getAll()
-        .filter((t) => t.vars.trigger === el)
-        .forEach((t) => t.kill());
-    };
+    return () => ctx.revert();
   }, [prefersReduced]);
 
   const baseStyle: React.CSSProperties = {
@@ -54,7 +50,8 @@ export function GradientText({ children, as: Tag = "span", className }: Gradient
   };
 
   return (
-    <Tag ref={ref} style={baseStyle} className={className}>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    <Tag ref={ref as any} style={baseStyle} className={className}>
       {children}
     </Tag>
   );

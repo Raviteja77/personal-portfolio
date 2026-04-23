@@ -6,6 +6,7 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { skills } from "@/content";
 import { GradientText } from "@/components/ui/GradientText";
+import { SplitReveal } from "@/components/ui/SplitReveal";
 import { SkillOrbit } from "@/components/ui/SkillOrbit";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -137,7 +138,9 @@ export function SkillsSection() {
         >
           Expertise
         </p>
-        <h2
+        <SplitReveal
+          text="Tools of"
+          suffix={<GradientText as="span">the trade</GradientText>}
           style={{
             fontFamily: "var(--font-heading)",
             fontWeight: 700,
@@ -146,10 +149,7 @@ export function SkillsSection() {
             color: "var(--color-text)",
             lineHeight: 1.1,
           }}
-        >
-          Tools of{" "}
-          <GradientText as="span">the trade</GradientText>
-        </h2>
+        />
         <p
           style={{
             fontFamily: "var(--font-body)",

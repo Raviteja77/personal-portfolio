@@ -7,6 +7,7 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import { personal } from "@/content";
 import { GradientText } from "@/components/ui/GradientText";
 import { ResumeCard } from "@/components/ui/ResumeCard";
+import { useMagneticHover } from "@/hooks/useMagneticHover";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -607,14 +608,18 @@ function SocialPill({
   label: string;
   icon: React.ReactNode;
 }) {
+  const mag = useMagneticHover(0.32);
   return (
     <motion.a
+      ref={mag.ref}
       href={href}
       target="_blank"
       rel="noopener noreferrer"
+      animate={{ x: mag.xy.x, y: mag.xy.y }}
       whileHover={{ scale: 1.05, borderColor: "rgba(37,99,235,0.5)" }}
       whileTap={{ scale: 0.95 }}
-      transition={{ type: "spring", stiffness: 420, damping: 22 }}
+      transition={{ type: "spring", stiffness: 200, damping: 18 }}
+      onMouseMove={mag.onMove}
       style={{
         display: "inline-flex",
         alignItems: "center",
@@ -628,7 +633,10 @@ function SocialPill({
         transition: "color 0.2s ease",
       }}
       onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--color-text)")}
-      onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--color-muted)")}
+      onMouseLeave={(e) => {
+        (e.currentTarget as HTMLElement).style.color = "var(--color-muted)";
+        mag.onLeave();
+      }}
     >
       {icon}
       <span style={{

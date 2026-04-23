@@ -6,6 +6,7 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { projects } from "@/content";
 import { GradientText } from "@/components/ui/GradientText";
+import { SplitReveal } from "@/components/ui/SplitReveal";
 import { ProjectCard } from "@/components/ui/ProjectCard";
 import { ProjectModal } from "@/components/ui/ProjectModal";
 import type { ProjectCardData } from "@/components/ui/ProjectCard";
@@ -87,7 +88,9 @@ export function WorkSection() {
               gap: "1rem",
             }}
           >
-            <h2
+            <SplitReveal
+              text="Things I've"
+              suffix={<GradientText as="span">built & shipped</GradientText>}
               style={{
                 fontFamily: "var(--font-heading)",
                 fontWeight: 700,
@@ -96,10 +99,7 @@ export function WorkSection() {
                 color: "var(--color-text)",
                 lineHeight: 1.1,
               }}
-            >
-              Things I&apos;ve{" "}
-              <GradientText as="span">built & shipped</GradientText>
-            </h2>
+            />
             <p
               style={{
                 fontFamily: "var(--font-body)",

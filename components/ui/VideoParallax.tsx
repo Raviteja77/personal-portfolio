@@ -20,18 +20,20 @@ export function VideoParallax({ src, posterSrc }: VideoParallaxProps) {
   useEffect(() => {
     if (prefersReduced || !sectionRef.current || !mediaRef.current) return;
 
-    const tween = gsap.to(mediaRef.current, {
-      yPercent: 20,
-      ease: "none",
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: "top bottom",
-        end: "bottom top",
-        scrub: true,
-      },
-    });
+    const ctx = gsap.context(() => {
+      gsap.to(mediaRef.current, {
+        yPercent: 20,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+    }, sectionRef);
 
-    return () => { tween.kill(); };
+    return () => ctx.revert();
   }, [prefersReduced]);
 
   return (

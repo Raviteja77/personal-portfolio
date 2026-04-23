@@ -6,6 +6,7 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { personal, experience, education } from "@/content";
 import { GradientText } from "@/components/ui/GradientText";
+import { SplitReveal } from "@/components/ui/SplitReveal";
 import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -125,7 +126,9 @@ export function AboutSection() {
         >
           About
         </p>
-        <h2
+        <SplitReveal
+          text="Building with"
+          suffix={<GradientText as="span">purpose & precision</GradientText>}
           style={{
             fontFamily: "var(--font-heading)",
             fontWeight: 700,
@@ -134,10 +137,7 @@ export function AboutSection() {
             color: "var(--color-text)",
             lineHeight: 1.1,
           }}
-        >
-          Building with{" "}
-          <GradientText as="span">purpose & precision</GradientText>
-        </h2>
+        />
       </motion.div>
 
       {/* Two-column layout */}
